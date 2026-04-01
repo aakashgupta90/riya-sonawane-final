@@ -23,12 +23,11 @@ const Navbar = () => {
   const navLinks = [
     { name: 'Home', path: '/', show: true },
     { name: 'Story', path: '/story', show: isUnlocked },
-    { name: '2021', path: '/year/2021', show: isUnlocked },
-    { name: '2022', path: '/year/2022', show: isUnlocked },
-    { name: '2023', path: '/year/2023', show: isUnlocked },
-    { name: '2024', path: '/year/2024', show: isUnlocked },
-    { name: '2025', path: '/year/2025', show: isUnlocked },
-    { name: 'Final ❤️', path: '/final', show: isUnlocked },
+    { name: 'Chat 💬', path: '/chat-memories', show: isUnlocked },
+    { name: 'Why You ❤️', path: '/why-you', show: isUnlocked },
+    { name: 'Gallery', path: '/year/2024', show: isUnlocked },
+    { name: 'Surprise 😏', path: '/surprise', show: isUnlocked },
+    { name: 'Final 💖', path: '/final', show: isUnlocked },
   ].filter(link => link.show);
 
   return (
@@ -43,17 +42,27 @@ const Navbar = () => {
         </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden md:flex items-center gap-5">
           {navLinks.map((link) => (
             <NavLink
               key={link.path}
               to={link.path}
               className={({ isActive }) => cn(
-                "text-sm font-medium transition-all duration-300 hover:text-accent",
+                "text-sm font-medium transition-all duration-300 hover:text-accent relative",
                 isActive ? "text-accent" : "text-white/70"
               )}
             >
-              {link.name}
+              {({ isActive }) => (
+                <>
+                  {link.name}
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeNav"
+                      className="absolute -bottom-1 left-0 right-0 h-0.5 bg-accent rounded-full"
+                    />
+                  )}
+                </>
+              )}
             </NavLink>
           ))}
         </div>

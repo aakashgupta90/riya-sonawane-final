@@ -67,3 +67,131 @@
   opacity: 0;
   transition: opacity 500ms;
 }
+
+/* Typewriter cursor blink */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.typewriter-cursor {
+  animation: blink 0.7s infinite;
+}
+
+/* Floating particles */
+@keyframes floatUp {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-10vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer-text {
+  background: linear-gradient(
+    90deg,
+    #e8547c 0%,
+    #fff 25%,
+    #e8547c 50%,
+    #fff 75%,
+    #e8547c 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s linear infinite;
+}
+
+/* Heart rain */
+@keyframes heartFall {
+  0% {
+    transform: translateY(-10vh) rotate(0deg) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+  100% {
+    transform: translateY(110vh) rotate(720deg) scale(0.5);
+    opacity: 0;
+  }
+}
+
+/* Glow pulse */
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(232, 84, 124, 0.3), 0 0 40px rgba(232, 84, 124, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(232, 84, 124, 0.6), 0 0 80px rgba(232, 84, 124, 0.3);
+  }
+}
+
+.glow-pulse {
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+/* WhatsApp chat bubbles */
+.chat-bubble-sent {
+  background: linear-gradient(135deg, #005c4b 0%, #00755c 100%);
+  border-radius: 12px 12px 0 12px;
+}
+
+.chat-bubble-received {
+  background: linear-gradient(135deg, #1f2c33 0%, #202c33 100%);
+  border-radius: 12px 12px 12px 0;
+}
+
+/* Shake animation */
+@keyframes shake {
+  10%, 90% { transform: translate3d(-1px, 0, 0); }
+  20%, 80% { transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+  40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+.animate-shake {
+  animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+/* Gradient border animation */
+@keyframes rotateBorder {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Stars background */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.5); }
+}
+
+/* Slow spin for music icon */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animate-spin-slow {
+  animation: spin-slow 3s linear infinite;
+}
+
+/* Surprise flash */
+@keyframes flashIn {
+  0% { opacity: 0; transform: scale(3); }
+  50% { opacity: 1; transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1); }
+}

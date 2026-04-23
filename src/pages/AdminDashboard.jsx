@@ -136,15 +136,30 @@ const AdminDashboard = () => {
         img.onload = () => {
           const canvas = document.createElement("canvas");
           const MAX_WIDTH = 1200;
-          const scaleSize = MAX_WIDTH / img.width;
-          canvas.width = MAX_WIDTH;
+          let scaleSize = 1;
+          if (img.width > MAX_WIDTH) {
+            scaleSize = MAX_WIDTH / img.width;
+          }
+          canvas.width = img.width * scaleSize;
           canvas.height = img.height * scaleSize;
           const ctx = canvas.getContext("2d");
           ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
           canvas.toBlob((blob) => {
-            resolve(new File([blob], file.name, { type: "image/webp" }));
+            if (blob) {
+              resolve(new File([blob], file.name.replace(/\.[^/.]+$/, "") + ".webp", { type: "image/webp" }));
+            } else {
+              resolve(file); // fallback to original file
+            }
           }, "image/webp", 0.7);
         };
+        img.onerror = () => {
+            console.error("Image loading failed during compression");
+            resolve(file); // fallback to original file if compression fails
+        };
+      };
+      reader.onerror = () => {
+        console.error("File reading failed");
+        resolve(file); // fallback to original file
       };
     });
   };
@@ -173,7 +188,12 @@ const AdminDashboard = () => {
         const fileName = `${year}/${Date.now()}_${file.name}`;
         const { error: uploadError } = await supabase.storage.from('media').upload(fileName, file);
 
-        if (uploadError) { hasError = true; break; }
+        if (uploadError) { 
+            console.error("Supabase Upload Error:", uploadError);
+            setUploadStatus(`Upload Error: ${uploadError.message}`);
+            hasError = true; 
+            break; 
+        }
 
         const { data: { publicUrl } } = supabase.storage.from('media').getPublicUrl(fileName);
 
@@ -181,7 +201,12 @@ const AdminDashboard = () => {
           year: parseInt(year), url: publicUrl, type: fileType, caption 
         }]);
 
-        if (dbError) { hasError = true; break; }
+        if (dbError) { 
+            console.error("Database Insert Error:", dbError);
+            setUploadStatus(`DB Error: ${dbError.message}`);
+            hasError = true; 
+            break; 
+        }
 
         uploadedCount++;
         setUploadProgress(Math.round(((i + 1) / files.length) * 100));
@@ -202,8 +227,6 @@ const AdminDashboard = () => {
       fetchMediaData();
       form.reset();
       setTimeout(() => { setUploadStatus(null); setUploadProgress(0); }, 3000);
-    } else {
-      setUploadStatus("Error uploading some files.");
     }
     
     setLoading(false);

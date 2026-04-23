@@ -81,14 +81,9 @@ const AppRoutes = () => {
 };
 
 function App() {
-  const [siteUnlocked, setSiteUnlocked] = useState(false);
-
-  useEffect(() => {
-    // Check if previously unlocked
-    if (localStorage.getItem('site_unlocked') === 'true') {
-      setSiteUnlocked(true);
-    }
-  }, []);
+  const [siteUnlocked, setSiteUnlocked] = useState(() => {
+    return localStorage.getItem('site_unlocked') === 'true';
+  });
 
   const handleUnlock = () => {
     setSiteUnlocked(true);

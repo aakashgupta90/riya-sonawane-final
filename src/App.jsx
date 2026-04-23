@@ -10,6 +10,7 @@ import ChatMemories from './pages/ChatMemories';
 import WhyYou from './pages/WhyYou';
 import SecretSurprise from './pages/SecretSurprise';
 import YearGallery from './pages/YearGallery';
+import GalleryPage from './pages/GalleryPage';
 import FinalPage from './pages/FinalPage';
 import AdminDashboard from './pages/AdminDashboard';
 import { useUnlockTime } from './hooks/useUnlockTime';
@@ -71,6 +72,7 @@ const AppRoutes = () => {
         <Route path="/why-you" element={<LockedRoute><WhyYou /></LockedRoute>} />
         <Route path="/surprise" element={<LockedRoute><SecretSurprise /></LockedRoute>} />
         <Route path="/year/:year" element={<LockedRoute><YearGallery /></LockedRoute>} />
+        <Route path="/gallery" element={<LockedRoute><GalleryPage /></LockedRoute>} />
         <Route path="/final" element={<LockedRoute><FinalPage /></LockedRoute>} />
 
         <Route path="/admin" element={<AdminDashboard />} />

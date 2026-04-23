@@ -25,7 +25,7 @@ const Navbar = () => {
     { name: 'Story', path: '/story', show: isUnlocked },
     { name: 'Chat 💬', path: '/chat-memories', show: isUnlocked },
     { name: 'Why You ❤️', path: '/why-you', show: isUnlocked },
-    { name: 'Gallery', path: '/year/2024', show: isUnlocked },
+    { name: 'Gallery', path: '/gallery', show: isUnlocked },
     { name: 'Surprise 😏', path: '/surprise', show: isUnlocked },
     { name: 'Final 💖', path: '/final', show: isUnlocked },
   ].filter(link => link.show);
